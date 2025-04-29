@@ -8,12 +8,13 @@ public class Enemy : MonoBehaviour
     public WeaponContoller wc;
     public int currentHealth;
     public int maxHealth;
+    public HealthBar healthBar;
 
-    
 
     void Awake()
     {
-        currentHealth = maxHealth;  
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void Update()
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Dagger" && wc.IsAttacking)
         {
             currentHealth--;
+            healthBar.SetHealth(currentHealth);
         }
 
     } 

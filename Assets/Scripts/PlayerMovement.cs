@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 3f;
     public int currentHealth;
     public int maxHealth;
+    public HealthBar healthBar;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
     // Update is called once per frame
     void Update()
@@ -64,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.tag == "Enemy Sword" && wc.IsAttacking)
         {
             currentHealth--;
+            healthBar.SetHealth(currentHealth);
         }
 
     }

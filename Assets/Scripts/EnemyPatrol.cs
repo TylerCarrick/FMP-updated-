@@ -158,13 +158,15 @@ public class EnemyPatrol : MonoBehaviour
     {
         Vector3 direction = (player.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 25);
 
     }
 
     private void ResetAttack()
     {
+        animAnimator.SetBool("Swing", false);
         alreadyAttacked = false;
+
     }
 
     private void OnDrawGizmosSelected()
