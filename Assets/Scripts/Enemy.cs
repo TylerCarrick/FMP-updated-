@@ -5,11 +5,12 @@ using System.Collections.Generic;
 public class Enemy : MonoBehaviour
 {
     public EnemyPatrol ep;
+    public EnemyWeaponController ewc;
     public WeaponContoller wc;
     public int currentHealth;
     public int maxHealth;
     public HealthBar healthBar;
-
+    public GameObject deathSpeech;
 
     void Awake()
     {
@@ -42,8 +43,10 @@ public class Enemy : MonoBehaviour
         GetComponent<Animator>().SetTrigger("Death");
         yield return new WaitForSeconds(7);
         Destroy(gameObject);
-
-
+        healthBar.gameObject.SetActive(false);
+        deathSpeech.gameObject.SetActive(true);
+        yield return new WaitForSeconds(10);
+        deathSpeech.gameObject.SetActive(false);
     }
 
 }

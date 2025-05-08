@@ -4,11 +4,11 @@ using UnityEngine.AI;
 public class EnemyPatrol : MonoBehaviour
 {
   public NavMeshAgent agent;
-  public Animation anim;
+  public Animator anim;
   public Transform player;
   public GameObject Head;
   public LayerMask whatIsGround, whatIsPlayer;
-  Animator animAnimator;
+  public Animator animAnimator;
     bool Idle;
     States state;
 
@@ -65,6 +65,7 @@ public class EnemyPatrol : MonoBehaviour
         {
             state = States.Chase;
         }
+
     }
 
     void DoChase()
@@ -109,6 +110,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private void patrolling()
     {
+       
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -147,11 +149,15 @@ public class EnemyPatrol : MonoBehaviour
         agent.SetDestination(transform.position);
 
         FaceTarget();
-        animAnimator.SetBool("Swing", true);
-        if (!alreadyAttacked)
+
+        GetComponent<Animator>().SetTrigger("Swing");
+        print("is attacking");
+        if (alreadyAttacked)
         {
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            ResetAttack();
+            anim.SetBool("Swing", false);
         }
     }
     void FaceTarget()
@@ -164,9 +170,10 @@ public class EnemyPatrol : MonoBehaviour
 
     private void ResetAttack()
     {
-        animAnimator.SetBool("Swing", false);
-        alreadyAttacked = false;
-
+        alreadyAttacked = true;
+        
+        AttackPlayer();
+           
     }
 
     private void OnDrawGizmosSelected()

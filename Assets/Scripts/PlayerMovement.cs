@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
     public WeaponContoller wc;
+    public EnemyWeaponController ewc;
     public float speed = 12f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
@@ -63,8 +65,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy Sword" && wc.IsAttacking)
+        if (other.tag == "EnemySword" && ewc.IsAttacking)
         {
+            print("Hit");
             currentHealth--;
             healthBar.SetHealth(currentHealth);
         }
@@ -73,7 +76,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Death()
     {
-        Destroy(gameObject);
+        SceneManager.LoadScene(2);
+        Cursor.lockState = CursorLockMode.None;
     }
     
 
