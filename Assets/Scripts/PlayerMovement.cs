@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public WeaponContoller wc;
     public EnemyWeaponController ewc;
+    AudioManager audioManager;
     public float speed = 12f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
@@ -24,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     // Update is called once per frame
     void Update()
@@ -38,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+        footStep();
 
         Vector3 move = transform.right * x + transform.forward * z;
    
@@ -63,6 +66,14 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    public void footStep()
+    {
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+        {
+            audioManager.PlaySFX(audioManager.footstep);
+            
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "EnemySword" && ewc.IsAttacking)

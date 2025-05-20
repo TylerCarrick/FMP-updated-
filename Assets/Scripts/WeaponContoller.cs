@@ -6,9 +6,15 @@ public class WeaponContoller : MonoBehaviour
     public GameObject Sword;
     public bool CanAttack = true;
     public float AttackCooldown = 1.0f;
-    public AudioClip AttackSound;
     public bool IsAttacking = false;
     public int AttackDamage = 1;
+
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();  
+    }
     void Start()
     {
 
@@ -37,8 +43,7 @@ public class WeaponContoller : MonoBehaviour
         CanAttack = false;
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("Attack");
-        AudioSource ac = GetComponent<AudioSource>();
-        ac.PlayOneShot(AttackSound);
+        audioManager.PlaySFX(audioManager.swing);
         StartCoroutine(ResetAttackCoolDown());
 
     }

@@ -45,8 +45,11 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
         healthBar.gameObject.SetActive(false);
         deathSpeech.gameObject.SetActive(true);
-        yield return new WaitForSeconds(10);
-        deathSpeech.gameObject.SetActive(false);
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+           deathSpeech.gameObject.SetActive(false);
+        }
+        
     }
 
 }
