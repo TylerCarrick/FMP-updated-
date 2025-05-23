@@ -68,7 +68,7 @@ public class EnemyPatrol : MonoBehaviour
 
     }
 
-    void DoChase()
+    public void DoChase()
     {
         ChasePlayer();
 
@@ -139,7 +139,7 @@ public class EnemyPatrol : MonoBehaviour
         }
     }
 
-    private void ChasePlayer()
+    public void ChasePlayer()
     {
         agent.SetDestination(player.position);
     }

@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     public int maxHealth;
     public HealthBar healthBar;
     public GameObject deathSpeech;
-
+    public GameObject BigBoss;
     void Awake()
     {
         currentHealth = maxHealth;
@@ -25,6 +25,9 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine (Death());
         }
+        
+        
+    
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,6 +47,7 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(7);
         Destroy(gameObject);
         healthBar.gameObject.SetActive(false);
+        healthBar.gameObject.SetActive(true);
         deathSpeech.gameObject.SetActive(true);
         if (Input.GetKeyDown(KeyCode.R))
         {
